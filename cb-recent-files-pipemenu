@@ -70,6 +70,7 @@ files=$( tac "${file_path}" |  awk -v MAX="$maximum_entries" -v PR="$pre" -v MI=
 !/href=[\"'\'']file:\/\// {next}
 # $1 is the command, $2 the file path
 {
+    sub(/count=\"1\".*$/,"",$1)
     sub(/^.*exec=\"\&apos\;/,"",$1)
     sub(/&apos\;.*$/,"",$1)
     sub(/\%.*$/,"",$1)
