@@ -12,7 +12,7 @@
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
-#    version 2012/07/01-cb
+#    version 2015/01/29-cb
 
 # Usage: add
 # <menu id="recent" label="Recent Files" execute="/path/to/cb-recent-files-pipemenu" />
@@ -33,11 +33,11 @@ elif [ -r "${HOME}/.recently-used.xbel" ]
 then
     file_path="${HOME}/.recently-used.xbel"
 else
-	echo "$0: cannot find a readable recently-used.xbel file" >&2
-	echo '<openbox_pipe_menu>
+    echo "$0: cannot find a readable recently-used.xbel file" >&2
+    echo '<openbox_pipe_menu>
 <separator label="No recently-used.xbel file found." />
 </openbox_pipe_menu>'
-	exit 1
+    exit 1
 fi
 
 # if argument is --clear, empty .recently-used.xbel
@@ -71,8 +71,9 @@ files=$( tac "${file_path}" |  awk -v MAX="$maximum_entries" -v PR="$pre" -v MI=
 # $1 is the command, $2 the file path
 {
     sub(/^.*exec=\"\&apos\;/,"",$1)
-    sub(/\&apos\;.*$/,"",$1)
-    sub(/ *%./,"",$1)
+    sub(/&apos\;.*$/,"",$1)
+    sub(/\%.*$/,"",$1)
+    sub(/ *$/,"",$1)
     sub(/^.*file:\/\//,"",$2)
     sub(/[\"'\''].*$/,"",$2)
     gsub(/%22/,"\\&quot;",$2)
